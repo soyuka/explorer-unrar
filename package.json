@@ -1,0 +1,15 @@
+{
+  "name": "explorer-unrar",
+  "version": "1.0.0",
+  "description": "Unrar plugin for explorer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "soyuka",
+  "license": "WTFPL",
+  "dependencies": {
+    "promise-spawner": "^1.1.3"
+  }
+}
