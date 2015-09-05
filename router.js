@@ -1,7 +1,3 @@
-var Spawner = require('promise-spawner')
-var spawner = new Spawner()
-var fs = require('fs')
-
 /**
  * unrarRouter
  * @param Express app our app instances

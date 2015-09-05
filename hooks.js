@@ -2,6 +2,7 @@
  * registerHooks
  * @param object locals explorer locals (see https://github.com/soyuka/explorer/blob/master/Plugins.md)
  * @param object config explorer configuration
+ * @return string
  */
 function registerHooks(locals, config) {
   return {
