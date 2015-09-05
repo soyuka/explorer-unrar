@@ -4,17 +4,16 @@
  * @param object config explorer configuration
  * @return string
  */
-function registerHooks(locals, config) {
+function registerHooks(config) {
   return {
     //hooking on directory
-    directory: function() {
-      let tree = locals.tree
-      let l = locals.tree.length
+    directory: function(tree) {
+      let l = tree.length
       let found = false
 
       //searches for a .rar|.r{00.999} in the tree
       while(l-- && !found) {
-        var e = locals.tree[l]
+        var e = tree[l]
 
         if(!e) {
           continue; 
@@ -29,7 +28,7 @@ function registerHooks(locals, config) {
         return '' //don't polute view
       
       //Directory hook wants a <dd> element, adding our route
-      return '<dd><a href="plugin/unrar?path='+locals.path+'">Unrar</a></dd>'
+      return '<dd><a href="plugin/unrar?path='+e.dirname+'">Unrar</a></dd>'
     }
   }
 }

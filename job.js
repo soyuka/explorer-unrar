@@ -56,9 +56,8 @@ UnrarJob.prototype.create = function(user, path) {
     //Notify user it's good to go!
     return self.stat.add(user.username, {message: `${path} extracted from ${from} to ${to}`, path: path, name: to})
   })
-  //Can oviously fail with an error
   .catch(function(err) {
-    self.ipc.send('unrar.error', this.data.err.join(' '))
+    self.ipc.send('error', this.data.err.join(eol))
 
     //Handling javascript errors
     if(err instanceof Error) {
