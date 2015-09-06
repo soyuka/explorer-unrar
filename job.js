@@ -54,16 +54,15 @@ UnrarJob.prototype.create = function(user, path) {
     }
 
     //Notify user it's good to go!
-    return self.stat.add(user.username, {message: path+' extracted from '+form+' to '+to, path: path, name: to})
+    return self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to})
   })
   .catch(function(err) {
-    self.ipc.send('error', this.data.err.join(eol))
-
     //Handling javascript errors
     if(err instanceof Error) {
       return self.stat.add(user.username, {error: err.message})
     //Handling unrar errors
     } else {
+      self.ipc.send('error', this.data.err.join(eol))
       return self.stat.add(user.username, {error: this.data.err.join(eol)})
     }
   })
