@@ -25,7 +25,7 @@ UnrarJob.prototype.create = function(user, path) {
   var self = this
   
   //Notify user that we've started
-  self.stat.add(user.username, {message: `Unrar launched in ${path}`, name: p.basename(path)})
+  self.stat.add(user.username, {message: 'Unrar launched in '+path, name: p.basename(path)})
 
   //We could easily support progress here
   //by using:
@@ -54,7 +54,7 @@ UnrarJob.prototype.create = function(user, path) {
     }
 
     //Notify user it's good to go!
-    return self.stat.add(user.username, {message: `${path} extracted from ${from} to ${to}`, path: path, name: to})
+    return self.stat.add(user.username, {message: path+' extracted from '+form+' to '+to, path: path, name: to})
   })
   .catch(function(err) {
     self.ipc.send('error', this.data.err.join(eol))

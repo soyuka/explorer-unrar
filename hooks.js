@@ -8,8 +8,8 @@ function registerHooks(config) {
   return {
     //hooking on directory
     directory: function(tree) {
-      let l = tree.length
-      let found = false
+      var l = tree.length
+      var found = false
 
       //searches for a .rar|.r{00.999} in the tree
       while(l-- && !found) {

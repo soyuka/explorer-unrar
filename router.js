@@ -16,4 +16,4 @@ function unrarRouter(app, utils) {
   app.get('/plugin/unrar', utils.prepareTree, unrarPath)
 }
 
-export default unrarRouter
+module.exports = unrarRouter
