@@ -8,7 +8,7 @@ var eol = require('os').EOL
  * @param IPCEE ipc our process communication instance
  * @param Stat stat the Stat used for notifications
  */
-function UnrarJob(ipc = null, stat) {
+function UnrarJob(ipc, stat) {
   if(!(this instanceof UnrarJob)) { return new UnrarJob(ipc, stat) }
   this.ipc = ipc
   this.stat = stat
