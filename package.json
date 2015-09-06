@@ -1,6 +1,6 @@
 {
   "name": "explorer-unrar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Unrar plugin for explorer",
   "main": "index.js",
   "scripts": {
