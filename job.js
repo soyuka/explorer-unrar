@@ -21,7 +21,7 @@ function UnrarJob(ipc, stat) {
  * @param User user
  * @param string path
  */
-UnrarJob.prototype.create = function(user, path) {
+UnrarJob.prototype.create = function(user, path, cb) {
   var self = this
   
   //Notify user that we've started
@@ -33,7 +33,12 @@ UnrarJob.prototype.create = function(user, path) {
   spawner.spawn('unrar e -ierr -or .', {cwd: path})
   .then(function() {
     var from, to
-    var data = this.data.err
+
+    var data = this.data.err.map(function(e) {
+      return e.split(eol)
+    })
+
+    data = [].concat.apply([], data)
 
     //Dirty parsing command to get what we need
     //using a stream would be prettier
@@ -49,12 +54,15 @@ UnrarJob.prototype.create = function(user, path) {
         var matches = data[i].match(/^Extracting[\s]+([^\s].\S+).+/)
         if(matches) {
           to = matches[1]
+          console.log(matches);
         }
       }
     }
 
     //Notify user it's good to go!
-    return self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to})
+    self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to})
+
+    return cb ? cb() : null
   })
   .catch(function(err) {
     //Handling javascript errors
