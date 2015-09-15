@@ -1,9 +1,9 @@
 /**
  * unrarRouter
- * @param Express app our app instances
+ * @param Express.Router router
  * @param object utils explorer utils (see https://github.com/soyuka/explorer/blob/master/Plugins.md 
  */
-function unrarRouter(app, utils) {
+function unrarRouter(router, utils) {
   var HTTPError = utils.HTTPError
 
   function unrarPath(req, res, next) {
@@ -13,7 +13,9 @@ function unrarRouter(app, utils) {
     return res.handle('back', {info: 'Unrar launched'}, 201)
   }
 
-  app.get('/plugin/unrar', utils.prepareTree, unrarPath)
+  router.get('/plugin/unrar', utils.prepareTree, unrarPath)
+
+  return router
 }
 
 module.exports = unrarRouter
