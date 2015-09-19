@@ -50,12 +50,8 @@ UnrarJob.prototype.create = function(user, path, cb) {
 
       if(/^Extracting from/.test(data[i])) {
         from = data[i].replace('Extracting from ', '').trim()
-      } else {
-        var matches = data[i].match(/^Extracting[\s]+([^\s].\S+).+/)
-        if(matches) {
-          to = matches[1]
-          console.log(matches);
-        }
+      } else if(/^Extracting /.test(data[i])) {
+        to = data[i].replace(/Extracting\s+|OK|\d{2,}%|[\b]/g, '').trim()
       }
     }
 

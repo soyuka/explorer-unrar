@@ -13,7 +13,7 @@ function unrarRouter(router, utils) {
     return res.handle('back', {info: 'Unrar launched'}, 201)
   }
 
-  router.get('/plugin/unrar', utils.prepareTree, unrarPath)
+  router.get('/', utils.prepareTree, unrarPath)
 
   return router
 }

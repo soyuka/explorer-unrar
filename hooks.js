@@ -28,7 +28,7 @@ function registerHooks(config) {
         return '' //don't polute view
       
       //Directory hook wants a <dd> element, adding our route
-      return '<dd><a href="plugin/unrar?path='+e.dirname+'">Unrar</a></dd>'
+      return '<dd><a href="/p/unrar?path='+e.dirname+'">Unrar</a></dd>'
     }
   }
 }
