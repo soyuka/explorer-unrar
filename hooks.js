@@ -4,7 +4,7 @@
  * @param object config explorer configuration
  * @return string
  */
-function registerHooks(config) {
+function registerHooks(config, route) {
   return {
     //hooking on directory
     directory: function(tree) {
@@ -28,7 +28,7 @@ function registerHooks(config) {
         return '' //don't polute view
       
       //Directory hook wants a <dd> element, adding our route
-      return '<dd><a href="/p/unrar?path='+e.dirname+'">Unrar</a></dd>'
+      return '<dd><a href="'+route+'?path='+e.dirname+'">Unrar</a></dd>'
     }
   }
 }
