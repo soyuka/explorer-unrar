@@ -56,7 +56,7 @@ UnrarJob.prototype.create = function(user, path, cb) {
     }
 
     //Notify user it's good to go!
-    self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to})
+    self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to + ' -exact'})
 
     return cb ? cb() : null
   })
