@@ -6,12 +6,10 @@ var eol = require('os').EOL
 /**
  * UnrarJob
  * @param IPCEE ipc our process communication instance
- * @param Stat stat the Stat used for notifications
  */
-function UnrarJob(ipc, stat) {
-  if(!(this instanceof UnrarJob)) { return new UnrarJob(ipc, stat) }
+function UnrarJob(ipc) {
+  if(!(this instanceof UnrarJob)) { return new UnrarJob(ipc) }
   this.ipc = ipc
-  this.stat = stat
 }
 
 /**
@@ -25,7 +23,9 @@ UnrarJob.prototype.create = function(user, path, cb) {
   var self = this
   
   //Notify user that we've started
-  self.stat.add(user.username, {message: 'Unrar launched in '+path, name: p.basename(path)})
+  self.ipc.send('unrar:notify', user.username, {
+    message: 'Unrar launched in '+path
+  })
 
   //We could easily support progress here
   //by using:
@@ -55,35 +55,25 @@ UnrarJob.prototype.create = function(user, path, cb) {
       }
     }
 
-    //Notify user it's good to go!
-    self.stat.add(user.username, {message: path+' extracted from '+from+' to '+to, path: path, name: to + ' -exact'})
+    self.ipc.send('unrar:notify', user.username, {
+      message: path+' extracted from '+from+' to '+to,
+      path: path, 
+      search: to
+    })
 
     return cb ? cb() : null
   })
   .catch(function(err) {
     //Handling javascript errors
     if(err instanceof Error) {
-      return self.stat.add(user.username, {error: err.message})
+      self.ipc.send('unrar:notify', user.username, {error: err.message})
     //Handling unrar errors
     } else {
-      self.ipc.send('error', this.data.err.join(eol))
-      return self.stat.add(user.username, {error: this.data.err.join(eol)})
+      self.ipc.send('unrar:notify', user.username, {
+        message: this.data.err.join(eol), error: true
+      })
     }
   })
-}
-
-/**
- * Called to get unrar notifications
- */
-UnrarJob.prototype.info = function() {
-  return this.stat.get()
-}
-
-/**
- * Called to remove unrar notifications
- */
-UnrarJob.prototype.clear = function(user) {
-  return this.stat.remove(user)
 }
 
 module.exports = UnrarJob

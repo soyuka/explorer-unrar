@@ -1,13 +1,12 @@
 /**
  * registerHooks
- * @param object locals explorer locals (see https://github.com/soyuka/explorer/blob/master/Plugins.md)
- * @param object config explorer configuration
+ * @see Plugins
  * @return string
  */
-function registerHooks(config, route) {
+function registerHooks(config, user, utils) {
   return {
     //hooking on directory
-    directory: function(tree) {
+    directory: function(tree, path) {
       var l = tree.length
       var found = false
 
@@ -27,8 +26,7 @@ function registerHooks(config, route) {
       if(found === false)
         return '' //don't polute view
       
-      //Directory hook wants a <dd> element, adding our route
-      return '<dd><a href="'+route+'?path='+e.dirname+'">Unrar</a></dd>'
+      return '<dd><a href="/p/unrar?path='+path+'">Unrar</a></dd>'
     }
   }
 }
