@@ -6,7 +6,7 @@
 function registerHooks(config, user, utils) {
   return {
     //hooking on directory
-    directory: function(tree, path) {
+    below: function(tree, path) {
       var l = tree.length
       var found = false
 
@@ -26,7 +26,7 @@ function registerHooks(config, user, utils) {
       if(found === false)
         return '' //don't polute view
       
-      return '<dd><a href="/p/unrar?path='+path+'">Unrar</a></dd>'
+      return '<a class="button small" href="/p/unrar?path='+path+'">Unrar</a>'
     }
   }
 }
